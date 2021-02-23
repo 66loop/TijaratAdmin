@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import Modal from "react-responsive-modal";
-import data from "../../../assets/data/sub-category";
-import Datatable from "../../common/datatable";
-import CategoryDatatable from "../../common/CategoryDatatable";
+import "react-toastify/dist/ReactToastify.css";
+import UsersList from "../../../assets/data/usersList";
+import UserDatatable from "../../common/UserDatatable";
 
-export class Sub_category extends Component {
+export class User_list extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       open: false,
     };
@@ -25,27 +24,18 @@ export class Sub_category extends Component {
     const { open } = this.state;
     return (
       <Fragment>
-        <Breadcrumb title="Category" parent="Physical" />
+        <Breadcrumb title="Users List" parent="Physical" />
         {/* <!-- Container-fluid starts--> */}
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-12">
               <div className="card">
                 <div className="card-header">
-                  <h5>Products Category</h5>
+                  <h5>Users List</h5>
                 </div>
                 <div className="card-body">
                   <div className="btn-popup pull-right">
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={this.onOpenModal}
-                      data-toggle="modal"
-                      data-original-title="test"
-                      data-target="#exampleModal"
-                    >
-                      Add Category
-                    </button>
+                    {/* <button type="button" className="btn btn-primary" onClick={this.onOpenModal} data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Category</button> */}
                     <Modal open={open} onClose={this.onCloseModal}>
                       <div className="modal-header">
                         <h5
@@ -101,14 +91,13 @@ export class Sub_category extends Component {
                   </div>
                   <div className="clearfix"></div>
                   <div id="basicScenario" className="product-physical">
-                    <CategoryDatatable
+                    <UserDatatable
                       multiSelectOption={false}
-                      myData={data}
+                      myData={UsersList}
                       pageSize={10}
                       pagination={true}
                       class="-striped -highlight"
                       user={true}
-                      subCate={this.onOpenModal}
                     />
                   </div>
                 </div>
@@ -122,4 +111,4 @@ export class Sub_category extends Component {
   }
 }
 
-export default Sub_category;
+export default User_list;

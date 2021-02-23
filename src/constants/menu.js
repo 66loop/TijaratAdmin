@@ -52,7 +52,7 @@ export const MENUITEMS = [
     active: false,
     children: [
       {
-        path: "/products/physical/user-products",
+        path: "/products/physical/user-list",
         title: "User List",
         type: "link",
       },
@@ -64,17 +64,17 @@ export const MENUITEMS = [
     type: "sub",
     active: false,
     children: [
-    //   {
-    //     path: "/products/physical/category",
-    //     title: "My Products",
-    //     type: "link",
-    //   },
+      //   {
+      //     path: "/products/physical/category",
+      //     title: "My Products",
+      //     type: "link",
+      //   },
       // { path: '/products/physical/product-detail', title: 'Product Detail', type: 'link' },
-    //   {
-    //     path: "/products/physical/add-product",
-    //     title: "Add Product",
-    //     type: "link",
-    //   },
+      //   {
+      //     path: "/products/physical/add-product",
+      //     title: "Add Product",
+      //     type: "link",
+      //   },
       {
         path: "/products/physical/user-products",
         title: "User Products",
@@ -102,6 +102,20 @@ export const MENUITEMS = [
       {
         path: "/products/physical/sub-category",
         title: "Category",
+        type: "link",
+      },
+    ],
+  },
+  {
+    title: "Customize",
+    icon: Box,
+    type: "sub",
+    active: false,
+    children: [
+      // { path: '/products/physical/category', title: 'Category', type: 'link' },
+      {
+        path: "/products/physical/customize/footer",
+        title: "Footer",
         type: "link",
       },
     ],
@@ -165,13 +179,13 @@ export const MENUITEMS = [
     type: "sub",
     children: [{ path: "/settings/profile", title: "Profile", type: "link" }],
   },
-  {
-    title: "Invoice",
-    path: "/invoice",
-    icon: Archive,
-    type: "link",
-    active: false,
-  },
+  // {
+  //   title: "Invoice",
+  //   path: "/invoice",
+  //   icon: Archive,
+  //   type: "link",
+  //   active: false,
+  // },
   // {
   //     title: 'Login', path: '/auth/login', icon: LogIn, type: 'link', active: false
   // }

@@ -48,6 +48,8 @@ import Datatable from "./components/common/datatable";
 import Login from "./components/auth/login";
 import Edit_product from "./components/products/physical/edit-product";
 import User_data from "./components/products/physical/user-data";
+import User_list from "./components/products/physical/users-list";
+import CustomizeFooter from "./components/footer/CustomizeFooter";
 
 class Root extends Component {
   render() {
@@ -85,8 +87,16 @@ class Root extends Component {
                 component={User_data}
               />
               <Route
+                path={`${process.env.PUBLIC_URL}/products/physical/user-list`}
+                component={User_list}
+              />
+              <Route
                 path={`${process.env.PUBLIC_URL}/products/physical/sub-category`}
                 component={Sub_category}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/products/physical/customize/footer`}
+                component={CustomizeFooter}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/products/physical/product-list`}
