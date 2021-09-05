@@ -50,6 +50,10 @@ import Edit_product from "./components/products/physical/edit-product";
 import User_data from "./components/products/physical/user-data";
 import User_list from "./components/products/physical/users-list";
 import CustomizeFooter from "./components/footer/CustomizeFooter";
+import Advertisement from "./components/advertisement/Advertisement";
+import Advertisement_List from "./components/advertisement/advertisement-list";
+import TextCMSList from "./components/textcms/TextCMSList";
+import TextCMS from "./components/textcms/TextCms";
 
 class Root extends Component {
   render() {
@@ -95,8 +99,20 @@ class Root extends Component {
                 component={Sub_category}
               />
               <Route
-                path={`${process.env.PUBLIC_URL}/products/physical/customize/footer`}
-                component={CustomizeFooter}
+                path={`${process.env.PUBLIC_URL}/products/physical/customize/footer_list`}
+                component={TextCMSList}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/products/physical/customize/footer/:id`}
+                component={TextCMS}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/products/physical/customize/Advertisement/:id`}
+                component={Advertisement}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/products/physical/customize/Advertisement_list`}
+                component={Advertisement_List}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/products/physical/product-list`}

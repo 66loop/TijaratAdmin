@@ -114,10 +114,25 @@ export const MENUITEMS = [
     children: [
       // { path: '/products/physical/category', title: 'Category', type: 'link' },
       {
-        path: "/products/physical/customize/footer",
-        title: "Footer",
+        path: "/products/physical/customize/footer/"+"l",
+        title: "Add Text",
         type: "link",
       },
+      {
+        path: "/products/physical/customize/footer_list",
+        title: "Text CMS",
+        type: "link",
+      },
+      {
+        path: "/products/physical/customize/Advertisement/"+ "l",
+        title: "Add Advertisement",
+        type: "link",
+      },
+      {
+        path: "/products/physical/customize/Advertisement_list",
+        title: "Advertisement",
+        type: "link",
+      }
     ],
   },
   // {
