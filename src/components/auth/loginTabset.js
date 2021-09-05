@@ -2,59 +2,87 @@ import React, { Component, Fragment } from 'react';
 import { Tabs, TabList, TabPanel, Tab } from 'react-tabs';
 import { User, Unlock } from 'react-feather';
 import { withRouter } from 'react-router-dom';
+import { adminLogin } from "../../apiService"
 
 export class LoginTabset extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: "",
+            password: "",
             activeShow: true,
             startDate: new Date()
         }
         this.handleChange = this.handleChange.bind(this)
     }
 
-    clickActive = (event) => {
-        document.querySelector(".nav-link").classList.remove('show');
-        event.target.classList.add('show');
-    }
+    // clickActive = (event) => {
+    //     document.querySelector(".nav-link").classList.remove('show');
+    //     event.target.classList.add('show');
+    // }
     handleChange(date) {
         this.setState({
             startDate: date
         });
+        console.log("data", date)
+
+    }
+    onChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    login = async () => {
+        const { email, password } = this.state
+        this.props.history.push(`${process.env.PUBLIC_URL}/dashboard`);
+
+        adminLogin({ email, password }).then(response => {
+            if (response.status === 201) {
+                console.log("response", response)
+                const { token, user } = response.data
+                localStorage.setItem("token", token)
+                localStorage.setItem("user", JSON.stringify(user))
+                window.confirm("in success")
+                this.props.history.push(`${process.env.PUBLIC_URL}/dashboard`);
+            }
+           
+        })
+
     }
 
     routeChange = () => {
-        this.props.history.push(`${process.env.PUBLIC_URL}/dashboard`);
-      }
+        console.log("jdhakjd", this.state.email)
+        console.log("jdhakjd", this.state.password)
+        // this.props.history.push(`${process.env.PUBLIC_URL}/dashboard`);
+    }
     render() {
         return (
             <div>
                 <Fragment>
                     <Tabs>
                         <TabList className="nav nav-tabs tab-coupon" >
-                            <Tab className="nav-link" onClick={(e) => this.clickActive(e)}><User />Login</Tab>
-                            <Tab className="nav-link" onClick={(e) => this.clickActive(e)}><Unlock />Register</Tab>
+                            <Tab className="nav-link"><User />Login</Tab>
+                            <Tab className="nav-link" ><Unlock />Register</Tab>
                         </TabList>
 
                         <TabPanel>
-                            <form className="form-horizontal auth-form">
+                            <form className="form-horizontal auth-form" onSubmit={this.login}>
                                 <div className="form-group">
-                                    <input required="" name="login[username]" type="email" className="form-control" placeholder="Username" id="exampleInputEmail1" />
+                                    <input required="" name="email" type="email" className="form-control" onChange={this.onChange} placeholder="Username" id="exampleInputEmail1" />
                                 </div>
                                 <div className="form-group">
-                                    <input required="" name="login[password]" type="password" className="form-control" placeholder="Password" />
+                                    <input required="" name="password" type="password" className="form-control" onChange={this.onChange} placeholder="Password" />
                                 </div>
                                 <div className="form-terms">
                                     <div className="custom-control custom-checkbox mr-sm-2">
                                         <input type="checkbox" className="custom-control-input" id="customControlAutosizing" />
                                         <label className="d-block">
-                                                    <input className="checkbox_animated" id="chk-ani2" type="checkbox" />
+                                            <input className="checkbox_animated" id="chk-ani2" type="checkbox" />
                                                         Reminder Me <span className="pull-right"> <a href="#" className="btn btn-default forgot-pass p-0">lost your password</a></span>
-                                                </label>
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="form-button">
-                                    <button className="btn btn-primary" type="submit"  onClick={() => this.routeChange()}>Login</button>
+                                    <button className="btn btn-primary" type="submit">Login</button>
                                 </div>
                                 <div className="form-footer">
                                     <span>Or Login up with social platforms</span>

@@ -78,7 +78,7 @@ class Root extends Component {
                 path={`${process.env.PUBLIC_URL}/products/physical/category`}
                 component={Category}
               />
-              <Route
+              <Route exact
                 path={`${process.env.PUBLIC_URL}/products/physical/edit-product`}
                 component={Edit_product}
               />

@@ -4,22 +4,27 @@ import CKEditors from "react-ckeditor-component";
 import { AvField, AvForm } from "availity-reactstrap-validation";
 import one from "../../../assets/images/pro3/1.jpg";
 import user from "../../../assets/images/user.png";
-
+import { getAProduct } from "../../../apiService"
 export class Edit_product extends Component {
   constructor(props) {
     super(props);
     this.state = {
       quantity: 1,
       file: "",
-      dummyimgs: [
-        { img: user },
-        { img: user },
-        { img: user },
-        { img: user },
-        { img: user },
-        { img: user },
-      ],
+      id:  props.location.state,
+      product: "",
+      dummyimgs: [],
     };
+  }
+  componentDidMount() {
+    const { id } = this.state
+    getAProduct(id).then(response => {
+      console.log("res", response)
+      if(response.status === 201) {
+        const { product } = response.data
+        this.setState({ product})
+      }
+    })
   }
   IncrementItem = () => {
     this.setState((prevState) => {
@@ -70,6 +75,7 @@ export class Edit_product extends Component {
   }
 
   render() {
+    const { product } = this.state
     return (
       <Fragment>
         <Breadcrumb title="Edit Product" parent="Physical" />
@@ -93,7 +99,7 @@ export class Edit_product extends Component {
                               className="img-fluid image_zoom_1 blur-up lazyloaded"
                             />
                           </div>
-                          <div className="col-xl-3 xl-50 col-sm-6 col-3">
+                          {/* <div className="col-xl-3 xl-50 col-sm-6 col-3">
                             <ul className="file-upload-product">
                               {this.state.dummyimgs.map((res, i) => {
                                 return (
@@ -121,7 +127,7 @@ export class Edit_product extends Component {
                                 );
                               })}
                             </ul>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -138,6 +144,7 @@ export class Edit_product extends Component {
                             </label>
                             <div className="col-xl-8 col-sm-7">
                               <AvField
+                                value={product.name}
                                 className="form-control"
                                 name="product_name"
                                 id="validationCustom01"
@@ -153,6 +160,7 @@ export class Edit_product extends Component {
                             </label>
                             <div className="col-xl-8 col-sm-7">
                               <AvField
+                                value={product.price}
                                 className="form-control mb-0"
                                 name="price"
                                 id="validationCustom02"
@@ -164,10 +172,11 @@ export class Edit_product extends Component {
                           </div>
                           <div className="form-group mb-3 row">
                             <label className="col-xl-3 col-sm-4 mb-0">
-                              Product Code :
+                              Seller Name :
                             </label>
                             <div className="col-xl-8 col-sm-7">
                               <AvField
+                                // value={  }
                                 className="form-control "
                                 name="product_code"
                                 id="validationCustomUsername"
@@ -242,13 +251,14 @@ export class Edit_product extends Component {
                             </label>
                             <div className="col-xl-8 col-sm-7 description-sm">
                               <CKEditors
+                                value={product.description}
                                 activeclassName="p10"
                                 content={this.state.content}
-                                events={{
-                                  blur: this.onBlur,
-                                  afterPaste: this.afterPaste,
-                                  change: this.onChange,
-                                }}
+                                // events={{
+                                //   blur: this.onBlur,
+                                //   afterPaste: this.afterPaste,
+                                //   change: this.onChange,
+                                // }}
                               />
                             </div>
                           </div>

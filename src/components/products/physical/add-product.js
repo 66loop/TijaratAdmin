@@ -89,7 +89,7 @@ export class Add_product extends Component {
                                                     <div className="col-xl-9 xl-50 col-sm-6 col-9">
                                                         <img src={one} alt="" className="img-fluid image_zoom_1 blur-up lazyloaded" />
                                                     </div>
-                                                    <div className="col-xl-3 xl-50 col-sm-6 col-3">
+                                                    {/* <div className="col-xl-3 xl-50 col-sm-6 col-3">
                                                         <ul className="file-upload-product">
                                                             {
                                                                 this.state.dummyimgs.map((res, i) => {
@@ -105,7 +105,7 @@ export class Add_product extends Component {
                                                                 })
                                                             }
                                                         </ul>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>

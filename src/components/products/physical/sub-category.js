@@ -4,25 +4,40 @@ import Modal from "react-responsive-modal";
 import data from "../../../assets/data/sub-category";
 import Datatable from "../../common/datatable";
 import CategoryDatatable from "../../common/CategoryDatatable";
-
+import { getAllCategories } from "../../../apiService"
 export class Sub_category extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       open: false,
+      categories: []
     };
   }
   onOpenModal = () => {
     this.setState({ open: true });
   };
-
+  componentDidMount() {
+    getAllCategories().then(response => {
+      if (response.status === 201) {
+        const { categories } = response.data
+        console.log("categories", categories)
+        const filteretCategories = categories.map(category => {
+          return {
+            image: <img style={{ width: 50 , height: 50}} src={category.image} alt="category"></img> ,
+            name: category.name
+          }
+        })
+        this.setState({ categories: filteretCategories })
+      }
+    })
+  }
   onCloseModal = () => {
     this.setState({ open: false });
   };
 
   render() {
-    const { open } = this.state;
+    const { open, categories } = this.state;
     return (
       <Fragment>
         <Breadcrumb title="Category" parent="Physical" />
@@ -101,15 +116,17 @@ export class Sub_category extends Component {
                   </div>
                   <div className="clearfix"></div>
                   <div id="basicScenario" className="product-physical">
-                    <CategoryDatatable
-                      multiSelectOption={false}
-                      myData={data}
-                      pageSize={10}
-                      pagination={true}
-                      class="-striped -highlight"
-                      user={true}
-                      subCate={this.onOpenModal}
-                    />
+                    {categories.length > 0 &&
+                      <CategoryDatatable
+                        multiSelectOption={false}
+                        myData={categories}
+                        pageSize={10}
+                        pagination={true}
+                        class="-striped -highlight"
+                        user={true}
+                        subCate={this.onOpenModal}
+                      />
+                    }
                   </div>
                 </div>
               </div>

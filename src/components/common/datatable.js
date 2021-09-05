@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +11,8 @@ export class Datatable extends Component {
     this.state = {
       checkedValues: [],
       myData: this.props.myData,
+      redirect: false,
+      id: ""
     };
   }
 
@@ -56,13 +58,26 @@ export class Datatable extends Component {
     );
   };
 
+  goToEdite(id) {
+    console.log("id", id)
+    this.setState({ id, redirect: true})
+
+  }
+
   Capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   render() {
     const { pageSize, myClass, multiSelectOption, pagination } = this.props;
-    const { myData } = this.state;
+    const { myData , redirect, id} = this.state;
+    if(redirect) {
+      return(
+      <Redirect to={{
+        pathname: "/products/physical/edit-product/",
+        state: id
+      }} />)
+    }
 
     const columns = [];
     for (var key in myData[0]) {
@@ -139,7 +154,7 @@ export class Datatable extends Component {
           accessor: (str) => "delete",
           Cell: (row) => (
             <div>
-              <span
+              {/* <span
                 onClick={() => {
                   if (
                     window.confirm("Are you sure you wish to delete this item?")
@@ -160,10 +175,10 @@ export class Datatable extends Component {
                     color: "#e4566e",
                   }}
                 ></i>
-              </span>
+              </span> */}
 
               <span>
-                <Link to="/products/physical/edit-product">
+                <Link onClick={ ()=> this.goToEdite(myData[row.index].db_id)} >
                   <i
                     className="fa fa-pencil"
                     style={{
