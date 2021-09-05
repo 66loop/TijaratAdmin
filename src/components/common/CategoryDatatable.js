@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,8 @@ export class CategoryDatatable extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
+      id: "",
       checkedValues: [],
       myData: this.props.myData,
     };
@@ -38,6 +40,12 @@ export class CategoryDatatable extends Component {
     toast.success("Successfully Deleted !");
   };
 
+
+  gotoDetail (id) {
+    console.log("id", id)
+    this.setState({ id, redirect: true })
+  }
+
   renderEditable = (cellInfo) => {
     return (
       <div
@@ -62,8 +70,15 @@ export class CategoryDatatable extends Component {
 
   render() {
     const { pageSize, myClass, multiSelectOption, pagination } = this.props;
-    const { myData } = this.state;
-
+    const { myData, id, redirect } = this.state;
+    if(redirect) {
+      return ( 
+        <Redirect to={{
+          pathname :"show-category",
+          categoryId: id
+        }} />
+      )
+    }
     const columns = [];
     for (var key in myData[0]) {
       let editable = this.renderEditable;
@@ -139,7 +154,7 @@ export class CategoryDatatable extends Component {
           accessor: (str) => "delete",
           Cell: (row) => (
             <div>
-              <span
+              {/* <span
                 onClick={() => {
                   if (
                     window.confirm("Are you sure you wish to delete this item?")
@@ -160,7 +175,7 @@ export class CategoryDatatable extends Component {
                     color: "#e4566e",
                   }}
                 ></i>
-              </span>
+              </span> */}
 
               <span>
                 {/* <Link to="/products/physical/edit-product"> */}
@@ -186,7 +201,39 @@ export class CategoryDatatable extends Component {
           },
           sortable: false,
         });
+        columns.push({
+          Header: <b>detail</b>,
+          id: "delete",
+          accessor: (str) => "delete",
+          Cell: (row) => (
+            <div>
+              
+              <span onClick={()=> this.gotoDetail(myData[row.index].DB_id)}>
+                {/* <Link to="/products/physical/edit-product"> */}
+                <i
+                  className="fa fa-eye"
+                  style={{
+                    width: 35,
+                    fontSize: 20,
+                    padding: 11,
+                    color: "rgb(40, 167, 69)",
+                  }}
+                  onClick={this.props.subCate}
+                  data-toggle="modal"
+                  data-original-title="test"
+                  data-target="#exampleModal"
+                ></i>
+                {/* </Link> */}
+              </span>
+            </div>
+          ),
+          style: {
+            textAlign: "center",
+          },
+          sortable: false,
+        });
       }
+      
     }
 
     return (

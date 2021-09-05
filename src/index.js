@@ -10,6 +10,8 @@ import Dashboard from "./components/dashboard";
 
 // Products physical
 import Category from "./components/products/physical/category";
+import ShowCategory from "./components/products/physical/show-category"
+
 import Sub_category from "./components/products/physical/sub-category";
 import Product_list from "./components/products/physical/product-list";
 import Add_product from "./components/products/physical/add-product";
@@ -77,6 +79,11 @@ class Root extends Component {
               <Route
                 path={`${process.env.PUBLIC_URL}/products/physical/category`}
                 component={Category}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/products/physical/show-category`}
+                component={ShowCategory}
               />
               <Route exact
                 path={`${process.env.PUBLIC_URL}/products/physical/edit-product`}

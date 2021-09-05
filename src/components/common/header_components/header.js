@@ -3,6 +3,7 @@ import SearchHeader from "./searchHeader";
 import Notification from "./notification";
 import User_menu from "./user-menu";
 import Language from "./language";
+import { Redirect } from "react-router-dom"
 import {
   AlignLeft,
   Maximize2,
@@ -21,6 +22,7 @@ export class Header extends Component {
       sidebar: true,
       rightSidebar: true,
       navMenus: false,
+      redirect: false,
     };
   }
   toggle() {
@@ -72,7 +74,23 @@ export class Header extends Component {
       document.querySelector(".page-sidebar").classList.remove("open");
     }
   };
+
+  logout() {
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
+    localStorage.removeItem("userId")
+    this.setState({ redirect: true })
+
+
+  }
+
   render() {
+    const { redirect } = this.state
+    if (redirect) {
+      return (
+        <Redirect to="/" />
+      )
+    }
     return (
       <Fragment>
         {/* open */}
@@ -113,6 +131,8 @@ export class Header extends Component {
                 {/* <li><a onClick={this.showRightSidebar}><MessageSquare /><span className="dot"></span></a></li> */}
                 <User_menu />
               </ul>
+              <button onClick={() => this.logout()} style={{ cursor: "pointer", backgroundColor: '#ADD8E6', float: "right", border: 'none' }}>logout</button>
+
               <div
                 className="d-lg-none mobile-toggle pull-right"
                 onClick={() => this.toggle()}

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import Modal from "react-responsive-modal";
+import { Redirect } from "react-router-dom"
 import "react-toastify/dist/ReactToastify.css";
 import data from "../../../assets/data/category";
 import Datatable from "../../common/datatable";
@@ -26,9 +27,9 @@ export class User_data extends Component {
           if (response.status === 201) {
             console.log("response.data", response.data)
             const { products } = response.data
-            if(products.length <1) {
+            if (products.length < 1) {
               window.confirm("There are no products for this user")
-            }else{
+            } else {
               this.dateFormated(products)
             }
           }
@@ -42,9 +43,9 @@ export class User_data extends Component {
           if (response.status === 201) {
             console.log("response", response.data)
             const { products } = response.data
-            if(products.length <1) {
+            if (products.length < 1) {
               window.confirm("There are no products for this user")
-            }else {
+            } else {
               this.dateFormated(products)
             }
           }
@@ -53,7 +54,7 @@ export class User_data extends Component {
         console.log("error", error.message)
       }
     }
-    
+
   }
 
   dateFormated = (products) => {
@@ -81,6 +82,13 @@ export class User_data extends Component {
   };
 
   render() {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      return (
+        <Redirect to="/" />
+      )
+    }
+
     const { open, userProducts } = this.state;
     return (
       <Fragment>

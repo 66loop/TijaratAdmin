@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import Modal from "react-responsive-modal";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect } from "react-router-dom"
 // import UsersList from "../../../assets/data/usersList";
 import UserDatatable from "../../common/UserDatatable";
 import { getAllUsers } from "../../../apiService"
@@ -80,7 +81,15 @@ export class User_list extends Component {
   };
 
   render() {
+    const token = localStorage.getItem("token")
+        if(!token) {
+            return (
+                <Redirect to="/" />
+            )
+        }
+
     const { open, UsersList } = this.state;
+    console.log("ashdajshdj", UsersList)
     return (
       <Fragment>
         <Breadcrumb title="Users List" parent="Physical" />

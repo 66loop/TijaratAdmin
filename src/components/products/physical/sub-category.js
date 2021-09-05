@@ -1,17 +1,23 @@
 import React, { Component, Fragment } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import Modal from "react-responsive-modal";
+import { Redirect } from "react-router-dom"
 import data from "../../../assets/data/sub-category";
 import Datatable from "../../common/datatable";
 import CategoryDatatable from "../../common/CategoryDatatable";
-import { getAllCategories } from "../../../apiService"
+import { getAllCategories, addCategory } from "../../../apiService"
+import Category from "./category";
 export class Sub_category extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       open: false,
-      categories: []
+      categoryName: "",
+      image: "",
+      previewImage: "",
+      categories: [],
+      redirect: false
     };
   }
   onOpenModal = () => {
@@ -24,7 +30,8 @@ export class Sub_category extends Component {
         console.log("categories", categories)
         const filteretCategories = categories.map(category => {
           return {
-            image: <img style={{ width: 50 , height: 50}} src={category.image} alt="category"></img> ,
+            DB_id: category._id,
+            image: <img style={{ width: 50, height: 50 }} src={category.image} alt="category"></img>,
             name: category.name
           }
         })
@@ -32,11 +39,48 @@ export class Sub_category extends Component {
       }
     })
   }
+
+  onChange(input) {
+    if (input.name === "image") {
+      const imageFile = input.files[0];
+      if (imageFile.name.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
+        this.setState({ image: input.files[0], previewImage: URL.createObjectURL(input.files[0]) });
+      }
+    } else {
+      this.setState({ [input.name]: input.value })
+    }
+  }
+
+  addCategory() {
+    try {
+      const { categoryName, image } = this.state
+
+      let formData = new FormData()
+      formData.append("name", categoryName)
+      formData.append("images", image)
+      console.log("form date", ...formData)
+      addCategory(formData).then(response => {
+        if (response.status === 201) {
+          window.location.reload()
+        }
+      })
+    } catch (error) {
+      console.log("error", error.message)
+    }
+  }
+
   onCloseModal = () => {
     this.setState({ open: false });
   };
 
   render() {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      return (
+        <Redirect to="/" />
+      )
+    }
+
     const { open, categories } = this.state;
     return (
       <Fragment>
@@ -79,7 +123,7 @@ export class Sub_category extends Component {
                             >
                               Category Name :
                             </label>
-                            <input type="text" className="form-control" />
+                            <input type="text" name="categoryName" onChange={(e) => this.onChange(e.target)} className="form-control" />
                           </div>
                           <div className="form-group">
                             <label
@@ -92,6 +136,9 @@ export class Sub_category extends Component {
                               className="form-control"
                               id="validationCustom02"
                               type="file"
+                              name="image"
+                              onChange={(e) => this.onChange(e.target)}
+
                             />
                           </div>
                         </form>
@@ -100,7 +147,7 @@ export class Sub_category extends Component {
                         <button
                           type="button"
                           className="btn btn-primary"
-                          onClick={() => this.onCloseModal("VaryingMdo")}
+                          onClick={() => this.addCategory()}
                         >
                           Save
                         </button>
