@@ -33,18 +33,19 @@ export class LoginTabset extends Component {
 
     login = async () => {
         const { email, password } = this.state
-        this.props.history.push(`${process.env.PUBLIC_URL}/dashboard`);
-
         adminLogin({ email, password }).then(response => {
             if (response.status === 201) {
-                console.log("response", response)
                 const { token, user } = response.data
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
-                window.confirm("in success")
                 this.props.history.push(`${process.env.PUBLIC_URL}/dashboard`);
-            }
-           
+            } 
+            else{
+            window.confirm("Your user name or password is incorect")
+                
+            }          
+        }).catch(err=> {
+            window.confirm("Your user name or password is incorect")
         })
 
     }

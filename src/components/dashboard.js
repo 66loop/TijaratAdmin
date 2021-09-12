@@ -20,6 +20,7 @@ import user1 from '../assets/images/dashboard/user1.jpg';
 import man from '../assets/images/dashboard/man.png';
 import user from '../assets/images/dashboard/user.png';
 import designer from '../assets/images/dashboard/designer.jpg'
+import { Redirect} from "react-router-dom"
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -27,6 +28,12 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 export class Dashboard extends Component {
 
     render() {
+        const token = localStorage.getItem("token")
+        if(!token) {
+            return (
+                <Redirect to="/" />
+            )
+        }
 
         const lineData = {
             labels: ['100', '200', '300', '400', '500', '600', '700', '800'],
