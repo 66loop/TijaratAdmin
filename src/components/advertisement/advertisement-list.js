@@ -48,7 +48,7 @@ export class Advertisement_List extends Component {
     const { codes } = this.state;
     return (
       <Fragment>
-        <Breadcrumb title="Users List" parent="Physical" />
+        <Breadcrumb title="Advertisement List" parent="Physical" />
         {/* <!-- Container-fluid starts--> */}
         <div className="container-fluid">
           <div className="row">

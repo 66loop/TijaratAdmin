@@ -174,33 +174,6 @@ export class UserDatatable extends Component {
         sortable: false,
       });
 
-      columns.push({
-        Header: <b>Products</b>,
-        id: "delete",
-        accessor: (str) => "delete",
-        Cell: (row) => (
-          <div>
-            <span>
-              <Link onClick={() => this.gotoUserProducts(myData[row.index].DB_id)}>
-                <i
-                  className="fa fa-eye"
-                  style={{
-                    width: 35,
-                    fontSize: 20,
-                    padding: 11,
-                    color: "rgb(40, 167, 69)",
-                  }}
-                ></i>
-              </Link>
-            </span>
-          </div>
-        ),
-        style: {
-          textAlign: "center",
-        },
-        sortable: false,
-      });
-
     }
 
     return (

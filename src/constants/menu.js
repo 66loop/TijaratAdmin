@@ -56,6 +56,11 @@ export const MENUITEMS = [
         title: "User List",
         type: "link",
       },
+      {
+        path: "/sellers",
+        title: "Seller Lists",
+        type: "link",
+      },
     ],
   },
   {

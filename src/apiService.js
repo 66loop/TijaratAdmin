@@ -23,6 +23,13 @@ export const getAllUsers = async () => {
     return instance.get('user')
 }
 
+export const getAllSellers = async () => {
+    return instance.get('user/sellers')
+}
+
+export const approveSeller = async (sellerId, status) => {
+    return instance.put(`user//verify-seller/${sellerId}/${status}`)
+}
 
 export const updateUserByAdmin = async (userId, data) => {
     return instance.put('user/'+userId, data)

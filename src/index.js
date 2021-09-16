@@ -10,7 +10,7 @@ import Dashboard from "./components/dashboard";
 
 // Products physical
 import Category from "./components/products/physical/category";
-import ShowCategory from "./components/products/physical/show-category"
+import ShowCategory from "./components/products/physical/show-category";
 
 import Sub_category from "./components/products/physical/sub-category";
 import Product_list from "./components/products/physical/product-list";
@@ -56,6 +56,8 @@ import Advertisement from "./components/advertisement/Advertisement";
 import Advertisement_List from "./components/advertisement/advertisement-list";
 import TextCMSList from "./components/textcms/TextCMSList";
 import TextCMS from "./components/textcms/TextCms";
+import Seller_list from "./components/products/physical/sellers-list";
+import Show_Seller_Details from "./components/products/physical/show-seller-detail";
 
 class Root extends Component {
   render() {
@@ -68,11 +70,11 @@ class Root extends Component {
               path={`${process.env.PUBLIC_URL}/`}
               component={Login}
             />
-            <Route
+            {/* <Route
               exact
               path={`${process.env.PUBLIC_URL}/auth/login`}
               component={Login}
-            />
+            /> */}
 
             <App>
               <Route
@@ -89,7 +91,8 @@ class Root extends Component {
                 path={`${process.env.PUBLIC_URL}/products/physical/show-category`}
                 component={ShowCategory}
               />
-              <Route exact
+              <Route
+                exact
                 path={`${process.env.PUBLIC_URL}/products/physical/edit-product`}
                 component={Edit_product}
               />
@@ -101,6 +104,17 @@ class Root extends Component {
                 path={`${process.env.PUBLIC_URL}/products/physical/user-list`}
                 component={User_list}
               />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/sellers`}
+                component={Seller_list}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/seller-details`}
+                component={Show_Seller_Details}
+              />
+
               <Route
                 path={`${process.env.PUBLIC_URL}/products/physical/sub-category`}
                 component={Sub_category}

@@ -25,6 +25,7 @@
     "react-fontawesome": "^1.6.1",
     "react-google-charts": "^3.0.14",
     "react-images-upload": "^1.2.7",
+    "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.1.0",
     "react-responsive-modal": "^4.0.1",
     "react-router-dom": "^5.0.1",

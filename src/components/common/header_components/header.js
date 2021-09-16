@@ -75,14 +75,6 @@ export class Header extends Component {
     }
   };
 
-  logout() {
-    localStorage.removeItem("user")
-    localStorage.removeItem("token")
-    localStorage.removeItem("userId")
-    this.setState({ redirect: true })
-
-
-  }
 
   render() {
     const { redirect } = this.state
@@ -131,7 +123,7 @@ export class Header extends Component {
                 {/* <li><a onClick={this.showRightSidebar}><MessageSquare /><span className="dot"></span></a></li> */}
                 <User_menu />
               </ul>
-              <button onClick={() => this.logout()} style={{ cursor: "pointer", backgroundColor: '#ADD8E6', float: "right", border: 'none' }}>logout</button>
+              {/* <button onClick={() => this.logout()} style={{ cursor: "pointer", backgroundColor: '#ADD8E6', float: "right", border: 'none' }}>logout</button> */}
 
               <div
                 className="d-lg-none mobile-toggle pull-right"
